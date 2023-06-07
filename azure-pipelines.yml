@@ -5,13 +5,13 @@
 resources:
 - repo: self
 
-variables:
+#variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '27d041df-22f2-4d4b-b7a6-f6dd4f6c2112'
-  imageRepository: 'tfbubuacrbuildhelloworldnode'
-  containerRegistry: '2022acr.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+#  dockerRegistryServiceConnection: '27d041df-22f2-4d4b-b7a6-f6dd4f6c2112'
+#  imageRepository: 'tfbubuacrbuildhelloworldnode'
+#  containerRegistry: '2022acr.azurecr.io'
+#  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+#  tag: '$(Build.BuildId)'
 
 
 
@@ -28,7 +28,7 @@ stages:
         displayName: Build and push an image to container registry
         inputs:
           containerRegistry: '2022ACR'
-          repository: '$(imageRepository)'
+          repository: 'tfbubuacrbuildhelloworldnode'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
-          tags: '$(tag)'
+          tags: '$(Build.BuildId)'
