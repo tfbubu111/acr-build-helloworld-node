@@ -21,7 +21,7 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool: Self-hostedAzureVM
+    pool: Default
 
     steps:
     - task: Docker@2
