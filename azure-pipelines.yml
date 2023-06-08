@@ -3,37 +3,28 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
-
-resources:
-- repo: self
+- none
 
 variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '750edffe-3964-47a9-9ed8-8e8b65ccebd9'
-  imageRepository: 'tfbubuacrbuildhelloworldnode'
-  containerRegistry: '2022acr.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
-
-  # Agent VM image name
+  containerRegistry: 'a2022acr.azurecr.io'
+  imagerepository: 'tfbubuacrbuildhelloworldnode'
+  tag: $(Build.BuildId)
   vmImageName: 'ubuntu-latest'
 
 stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+  - stage: Build 
+    displayName: Build stage  
+    jobs:
+    - job: Build
+      displayName: Build
+      pool: MSIpool
+      steps:
+##Use docker to build image and push into acr
+      - task: Docker@2
+        displayName: Build and push an image to container registry
+        inputs:
+          containerRegistry: '2022ACR'
+          repository: '$(imagerepository)'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+          tags: '$(tag)'
