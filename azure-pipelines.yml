@@ -21,7 +21,7 @@ stages:
     jobs:
     - job: Build
       displayName: Build
-      pool: 'MSI agentpool'
+      pool: 'MSIpool'
 
       steps:
       - task: Docker@2
